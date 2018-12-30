@@ -23,7 +23,7 @@ router.get('/create_survey', function (req, res) {
   var Length = 5;
   Question.aggregate([{ $sample: { size: Length } }], function (err, questions) {
     if (err) {
-      res.send({ 'message': err });
+      res.send({ message: err });
     } else {
       res.send(questions);
     }
@@ -48,7 +48,7 @@ router.post('/survey', function (req, res) {
 router.get('/survey', function (req, res) {
   Survey.find({}, function (err, surveys) {
     if (err) {
-      res.send({ 'error': err });
+      res.send({ error: err });
     } else {
       res.send(surveys);
     }
@@ -59,10 +59,12 @@ router.get('/survey', function (req, res) {
 // create question
 router.post('/question', function (req, res) {
   var question = {
-    type: req.body.type, score: req.body.score, answers: req.body.answers, answer: req.body.answer
+    question: req.body.question, score: req.body.score, answers: req.body.answers, answer: req.body.answer
   };
+  console.log('create question: ', { question: question });
   Question.create(question, function (err, result) {
     if (err) {
+      console.log(err);
       res.send({ error: err });
     } else {
       res.send({ message: 'success' });
@@ -73,7 +75,7 @@ router.post('/question', function (req, res) {
 router.get('/question', function (req, res) {
   Question.find({}, function (err, questions) {
     if (err) {
-      res.send({ 'error': err });
+      res.send({ error: err });
     }
     res.send(questions);
   });
@@ -85,9 +87,9 @@ router.delete('/question', function (req, res) {
   Question.remove({ _id: ObjectId(id) }, function (err) {
     if (err) {
       console.log(err);
-      res.send({ 'error': err });
+      res.send({ error: err });
     } else {
-      res.send({ 'message': "success" });
+      res.send({ message: 'success' });
     }
   });
 });

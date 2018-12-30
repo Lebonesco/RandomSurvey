@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Header, Table, Icon, Button, Modal, Form } from 'semantic-ui-react';
-
+import { Header, Table, Icon, Button, Modal } from 'semantic-ui-react';
+import { Form } from 'formsy-semantic-ui-react';
 const questions = [
 	{type: "radio", score: 6, question: "what is the capital of the US?", 
 	answer: "Washington D.C.", options: ["LA", "Seattle", "D.C.", "New York"]},
@@ -17,6 +17,8 @@ class QuestionTable extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {data: []}
+
+		this.handleValidSubmit = this.handleValidSubmit.bind(this);
 	}
 
 	componentDidMount() {
@@ -31,7 +33,22 @@ class QuestionTable extends Component {
 	handleDelete(id) {
 		this.props.deleteQuestion(id);
 		window.location.reload();
+	}
 
+	handleValidSubmit(formData) {
+		const {
+			question,
+			answers,
+			answer,
+			score
+		} = formData;
+		this.props.createQuestion({
+			question: question,
+			answers: answers,
+			answer: answer,
+			score: score,
+		});
+		window.location.reload();
 	}
 
 	render() {
@@ -79,11 +96,34 @@ class QuestionTable extends Component {
 												</Button>}>
 									<Modal.Header>Create Question</Modal.Header>
 									<Modal.Content>
-										<Form>
-											<Form.Input fluid label="Question" placeholder="What day is it?" />
-											<Form.Input fluid label="Answer" placeholder="idk..." />
-											<Form.Input fluid label="Answers" />
-											<Form.Input fluid label="Score" placeholder="ei: 5" />
+										<Form
+											onValidSubmit={ this.handleValidSubmit }
+											ref={ref => this.form = ref}
+										>
+											<Form.Input 
+												fluid
+												required
+												name='question'
+												label="Question" 
+												placeholder="What day is it?" />
+											<Form.Input 
+												fluid 
+												required
+												name='answer'
+												label="Answer" 
+												placeholder="idk..." />
+											<Form.Input 
+												fluid
+												required 
+												name='answers'
+												label="Answers" 
+												placeholder="answer1, answer2, ..."/>
+											<Form.Input 
+												fluid
+												required 
+												name='score'
+												label="Score" 
+												placeholder="ei: 5" />
 											<Form.Button>Submit</Form.Button>
 										</Form>
 									</Modal.Content>

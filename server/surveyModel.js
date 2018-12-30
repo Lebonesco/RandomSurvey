@@ -1,58 +1,57 @@
-var mongoose = require("mongoose");
+let mongoose = require('mongoose');
 
 // store questions
-var questionSchema = mongoose.Schema({
-	type: { // true/false, radio, multiple choice, fill in
-		type: String,
-		required: true
-	},
-	question: {
-		type: String,
-		require: true,
-	},
-	answers: {
-		type: [String],
-		require: true
-	},
-	answer: {
-		type: String,
-		required: true
-	},
-	score: {
-		type: Number,
-		required: true
-	}
+let questionSchema = mongoose.Schema({
+  type: { // true/false, radio, multiple choice, fill in
+    type: String,
+  },
+  question: {
+    type: String,
+    require: true,
+  },
+  answers: {
+    type: [String],
+    require: true,
+  },
+  answer: {
+    type: String,
+    required: true,
+  },
+  score: {
+    type: Number,
+    required: true,
+  },
 });
 
-var Question = mongoose.model('question', questionSchema);
+let Question = mongoose.model('question', questionSchema);
 
 // store results
-var surveySchema = mongoose.Schema({
-	fname: {
-		type: String,
-		required: true
-	},
-	lname: {
-		type: String,
-		require: true
-	},
-	email: {
-		type: String,
-		required: true
-	},
-	create_date: {
-		type: Date,
-		default: Date.now
-	},
-	score: {
-		type: Number,
-		require: true
-	}
+let surveySchema = mongoose.Schema({
+  fname: {
+    type: String,
+    required: true,
+  },
+  lname: {
+    type: String,
+    require: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  create_date: {
+    type: Date,
+    default: Date.now,
+  },
+  score: {
+    type: Number,
+    require: true,
+  },
 });
 
-var Survey = mongoose.model('survey', surveySchema);
+let Survey = mongoose.model('survey', surveySchema);
 
 export {
-	Question,
-	Survey
-}
+  Question,
+  Survey,
+};
