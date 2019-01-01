@@ -33,6 +33,11 @@ const deleteQuestion = (payload) => {
 };
 
 // get survey
+function getSurvey() {
+  const url = `${SERVER}/api/create_survey`;
+  return () => fetch(url)
+    .then(res => res.json());
+}
 
 // save survey
 
@@ -42,4 +47,5 @@ export {
   fetchQuestionList,
   createQuestion,
   deleteQuestion,
+  getSurvey,
 };

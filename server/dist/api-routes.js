@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
 
 // generate and return random survey
 router.get('/create_survey', function (req, res) {
-  var Length = 5;
+  var Length = 5; // amount of questions
   Question.aggregate([{ $sample: { size: Length } }], function (err, questions) {
     if (err) {
       res.send({ message: err });

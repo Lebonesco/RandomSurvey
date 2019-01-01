@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 const cors = require('cors');
 
 const app = express();
@@ -20,12 +21,16 @@ const db = mongoose.connection;
 
 const port = process.env.PORT || 8080;
 
-app.get('/', (req, res) => res.send('Hello World with Expresss')); // will deliver survey
-
 // import routes
 const apiRoutes = require('./api-routes');
 
+// set api routes
 app.use('/api', apiRoutes);
+
+// set client routes
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'index.html'))
+// })
 
 app.listen(port, () => {
   console.log(`Running RandomSurvey on port ${port}`);
